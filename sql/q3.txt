@@ -1,0 +1,56 @@
+mysql> create database ApptProj;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use ApptProj;
+Database changed
+mysql> source SQLscriptCreateTables.sql
+Query OK, 0 rows affected (0.03 sec)
+
+Query OK, 0 rows affected (0.04 sec)
+
+Query OK, 0 rows affected (0.03 sec)
+
+Query OK, 0 rows affected (0.04 sec)
+
+Query OK, 0 rows affected (0.05 sec)
+
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_ApptProj |
++--------------------+
+| Customer           |
+| Owner              |
+| Place              |
+| chooses            |
+| consults           |
+| registers          |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> source Customer.sql;
+Query OK, 425 rows affected (0.01 sec)
+Records: 442  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> source Owner.sql
+Query OK, 88 rows affected (0.01 sec)
+Records: 442  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> source Place.sql
+Query OK, 442 rows affected (0.01 sec)
+Records: 442  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> source chooses.sql
+Query OK, 442 rows affected (0.05 sec)
+Records: 1000  Deleted: 0  Skipped: 0  Warnings: 0 
+
+mysql> source registers.sql
+Query OK, 442 rows affected (0.01 sec)
+Records: 442  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> source consults.sql
+Query OK, 442 rows affected, (0.03 sec)
+Records: 442  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> notee;

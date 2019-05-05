@@ -1,0 +1,265 @@
+mysql> SELECT name FROM Customer
+    -> WHERE numPeople = 1;
++--------------------+
+| name               |
++--------------------+
+| Zola Robertet      |
+| Prudy Gabbett      |
+| Aggi Islep         |
+| Nelie Chasteney    |
+| Constantina Paszak |
+| Renault Horribine  |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT name, cID FROM Customer
+    -> WHERE cID = 1230;
++-----------------+------+
+| name            | cID  |
++-----------------+------+
+| Cindelyn Timmes | 1230 |
++-----------------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT name FROM Customer
+    -> WHERE cID IN (SELECT cID from Customer
+    ->                 WHERE numPeople = 30
+    -> );
++---------------------+
+| name                |
++---------------------+
+| Thorstein Mattessen |
+| Gabe Klimochkin     |
+| Abram Sange         |
+| Elset Greave        |
+| Inness Hyland       |
++---------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT name FROM Customer
+    -> WHERE cID IN (SELECT cID from registers
+    ->                 WHERE pID = "58-9733614"
+    -> 
+    -> );
++-----------------+
+| name            |
++-----------------+
+| Gavan Botcherby |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT name FROM Customer
+    -> WHERE cID IN (SELECT cID from registers
+    ->                 WHERE pID = "58-9733614"
+    -> 
+    -> )
+    -> UNION
+    -> SELECT name FROM Customer
+    -> WHERE cID IN (SELECT cID from Customer
+    ->                 WHERE numPeople = 30
+    -> );
++---------------------+
+| name                |
++---------------------+
+| Gavan Botcherby     |
+| Thorstein Mattessen |
+| Gabe Klimochkin     |
+| Abram Sange         |
+| Elset Greave        |
+| Inness Hyland       |
++---------------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT name FROM Customer
+    -> WHERE EXISTS(SELECT numPeople from chooses
+    ->                 WHERE numPeople < 12);
++-----------------------+
+| name                  |
++-----------------------+
+| Marilee McAuliffe     |
+| Chicky Galier         |
+| Maximilien Pedrick    |
+.
+.
+.
+| Aggi Islep            |
+| Dayle Dreakin         |
+| Janot Roblett         |
+| Desiree Olivi         |
+| Nelie Chasteney       |
+| Debora Pavier         |
+| Emelia Dymond         |
+| Constantina Paszak    |
+| Syman Arboin          |
+| Farly Brownscombe     |
+| Broddy Launchbury     |
+| Therine Fenkel        |
+| Renault Horribine     |
++-----------------------+
+42 rows in set (0.08 sec)
+
+mysql> SELECT name FROM Customer
+    -> WHERE NOT EXISTS(SELECT numPeople from chooses
+    ->                 WHERE numPeople < 12);
++------------------------+
+| name                   |
++------------------------+
+| Arthur Atheis          |
+| Fairfax Mc Faul        |
+| Jourdain Shemilt       |
+| Twila Facchini         |
+| Zabrina Schirach       |
+.
+.
+.
+| Les Mabley             |
+| Grete Cabedo           |
+| Ruddy Ranns            |
+| Chan Casino            |
+| Laurel Pettwood        |
+| Christiana Korbmaker   |
+| Lavena Ilieve          |
+| Inness Hyland          |
+| Filbert Kidson         |
+| Huntington Lucks       |
+| Correy Deeman          |
+| Aristotle Rubrow       |
+| Emyle Sprake           |
+| Marlene Geipel         |
+| Virge Tarpey           |
++------------------------+
+383 rows in set (0.08 sec)
+
+mysql> SELECT name FROM Customer
+    -> WHERE cID IN (SELECT cID from Customer
+    ->                 WHERE numPeople < 13
+    -> );
++-----------------------+
+| name                  |
++-----------------------+
+| Marilee McAuliffe     |
+| Carolynn Tilson       |
+| Chicky Galier         |
+.
+.
+.
+| Gilles Beaford        |
+| Rudiger Kembery       |
+| Danella Crossfeld     |
+| Merrily Medhurst      |
+| Hilly Ochterlony      |
+| Ardyth Redihough      |
+| Bernice Marston       |
+| Dionne Docker         |
+| Emelia Dymond         |
+| Constantina Paszak    |
+| Syman Arboin          |
+| Farly Brownscombe     |
+| Broddy Launchbury     |
+| Therine Fenkel        |
+| Renault Horribine     |
++-----------------------+
+46 rows in set (0.00 sec)
+
+mysql> SELECT name FROM Customer
+    -> WHERE cID NOT IN (SELECT cID from Customer
+    ->                 WHERE numPeople > 12
+    -> );
++-----------------------+
+| name                  |
++-----------------------+
+| Marilee McAuliffe     |
+| Carolynn Tilson       |
+| Chicky Galier         |
+| Maximilien Pedrick    |
+| Gillan Linzey         |
+| Dierdre Burgan        |
+| Zola Robertet         |
+.
+.
+.
+| Emelia Dymond         |
+| Constantina Paszak    |
+| Syman Arboin          |
+| Farly Brownscombe     |
+| Broddy Launchbury     |
+| Therine Fenkel        |
+| Renault Horribine     |
++-----------------------+
+46 rows in set (0.01 sec)
+
+mysql> SELECT name FROM Owner
+    -> WHERE oID = ANY(SELECT oID FROM registers);
++----------------------+
+| name                 |
++----------------------+
+| Antony Scherer       |
+| Trevor Rasher        |
+.
+.
+.
+| Brande Baty          |
+| Christoforo Wedlake  |
+| Tomas Cazin          |
+| Gallagher Mecco      |
+| Candi Marwood        |
+| Jefferson Pieper     |
+| Herold Georgiev      |
+| Perice Attrill       |
+| Baxter McCurdy       |
+| Lyndsay Jacquet      |
+| Clyve Dulin          |
+| Terrance Ferentz     |
+| Hamid Tremmil        |
+| Karney Deesly        |
+| Jayme Bothams        |
+| Bobine Jacob         |
+| Nessa Schankelborg   |
+| Arman Miliffe        |
+| Irwin Lawson         |
+| Sinclare Sollitt     |
++----------------------+
+88 rows in set (0.00 sec)
+
+mysql> SELECT name FROM Customer
+    -> WHERE numPeople = 1
+    -> group by name;
++--------------------+
+| name               |
++--------------------+
+| Aggi Islep         |
+| Constantina Paszak |
+| Nelie Chasteney    |
+| Prudy Gabbett      |
+| Renault Horribine  |
+| Zola Robertet      |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> 
+mysql> INSERT INTO Customer( cID, numPeople, status, name, email, phone)
+    -> VALUES (1117,3,"single","Mark Gibson","mKgIbson@mailingother.com","(210) 1234567" );
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DELETE FROM chooses 
+    -> WHERE cID = 1117;
+Query OK, 1 rows affected (0.00 sec)
+
+mysql> DELETE FROM chooses 
+    -> WHERE cID > 4960;
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> /* Customer with id 1230 changed his mind and wants the appartment*/
+mysql> UPDATE chooses
+    -> set decision = "yes"
+    -> WHERE cID = 1230;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE chooses
+    -> set decision = "no"
+    -> WHERE cID > 4900;
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 5  Changed: 0  Warnings: 0
+
+mysql> notee;
